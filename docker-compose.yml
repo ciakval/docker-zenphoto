@@ -1,0 +1,26 @@
+name: zenphoto
+
+services:
+
+  db:
+    image: mariadb
+    restart: always
+    env_file: env.txt
+    volumes:
+      - db:/var/lib/mysql:Z
+
+  web:
+    build: .
+    depends_on:
+      - db
+    hostname: zenphoto
+    ports:
+      - "8000:80"
+    volumes:
+      - web:/var/www/html
+    restart: always
+    env_file: env.txt
+
+volumes:
+  db:
+  web:
