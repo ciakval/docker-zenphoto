@@ -1,13 +1,13 @@
-# ZenPhoto CMS Docker support
+# Zenphoto Docker support
 
-This repository contains setup for running ZenPhoto (https://www.zenphoto.org/) in Docker.
+This repository contains setup for running Zenphoto (https://www.zenphoto.org/) in Docker.
 
 ## Usage
 
 1. Clone this repository
 2. (Optional) Change the unsafe passwords in _env.txt_
 3. Run `docker compose up --build` to start the application
-4. Open URL "http://localhost:8000/zenphoto" in your browser to access ZenPhoto
+4. Open URL "http://localhost:8000/zenphoto" in your browser to access Zenphoto
 
 ## Caveats
 

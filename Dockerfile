@@ -2,7 +2,7 @@ FROM debian:bookworm
 
 LABEL maintainer="Jan Remes <jan@remes.cz>" \
       version="1.0.0" \
-      description="ZenPhoto CMS container"
+      description="Zenphoto Docker container"
 
 ARG DEBIAN_FRONTEND=noninteractive
 

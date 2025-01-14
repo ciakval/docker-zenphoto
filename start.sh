@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Entrypoint script for Zenphoto CMS Docker
+# Entrypoint script for Zenphoto Docker
 #
 # Assumes that user will provide database information
 # as environment variables:
