@@ -3,16 +3,23 @@ name: zenphoto
 services:
 
   db:
-    image: mariadb
+    image: mariadb:11.4
     restart: always
     env_file: env.txt
     volumes:
       - db:/var/lib/mysql:Z
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
 
   web:
     build: .
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     hostname: zenphoto
     ports:
       - "8000:80"
