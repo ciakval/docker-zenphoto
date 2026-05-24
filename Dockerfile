@@ -34,7 +34,7 @@ RUN apt-get -y install \
 
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && dpkg-reconfigure locales
 
-ENV ZENPHOTO_VERSION=1.6.5
+ENV ZENPHOTO_VERSION=1.6.8
 RUN curl -L https://github.com/zenphoto/zenphoto/archive/v${ZENPHOTO_VERSION}.zip -o /zenphoto.zip
 
 COPY start.sh /start.sh
