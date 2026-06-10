@@ -1,7 +1,9 @@
-FROM debian:bookworm
+FROM debian:trixie
+ARG ZENPHOTO_VERSION=1.6.8
+ARG RELEASE=1
 
 LABEL maintainer="Jan Remes <jan@remes.cz>" \
-      version="1.0.0" \
+      version="${ZENPHOTO_VERSION}-${RELEASE}" \
       description="Zenphoto Docker container"
 
 ARG DEBIAN_FRONTEND=noninteractive
@@ -9,38 +11,35 @@ ARG DEBIAN_FRONTEND=noninteractive
 EXPOSE 80
 VOLUME ["/var/www/html"]
 
-RUN apt-get update
-
-RUN apt-get -y install \
+RUN apt-get update && apt-get -y install --no-install-recommends \
     apache2 \
-    php \
-    php-mysql \
-    libapache2-mod-php \
+    ca-certificates \
     curl \
-    less \
+    libapache2-mod-php \
     locales \
+    php \
     php-bz2 \
     php-curl \
     php-gd \
     php-imagick \
     php-intl \
     php-mbstring \
+    php-mysql \
     php-tidy \
     php-xml \
     php-zip \
-    vim \
     unzip \
-    && apt-get clean
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && dpkg-reconfigure locales
+RUN update-ca-certificates
 
-ENV ZENPHOTO_VERSION=1.6.8
-RUN curl -L https://github.com/zenphoto/zenphoto/archive/v${ZENPHOTO_VERSION}.zip -o /zenphoto.zip
+RUN curl -fsSL https://github.com/zenphoto/zenphoto/archive/refs/tags/v${ZENPHOTO_VERSION}.zip -o /zenphoto.zip
 
 COPY start.sh /start.sh
 RUN chmod +x /start.sh
 ENTRYPOINT ["/start.sh"]
-
 
 # Using 'apache2ctl' would be easier (no need to export variables) but it does not correctly
 # forward SIGINT to 'apache2', so stopping the container is slo-o-o-w
@@ -51,4 +50,3 @@ ENV APACHE_RUN_USER=www-data
 ENV APACHE_RUN_GROUP=www-data
 ENV APACHE_LOG_DIR=/var/log/apache2
 CMD [ "apache2", "-D", "FOREGROUND" ]
-

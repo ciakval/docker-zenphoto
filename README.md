@@ -1,17 +1,25 @@
 # Zenphoto Docker support
 
-This repository contains setup for running Zenphoto (https://www.zenphoto.org/) in Docker.
+This repository contains setup for running [Zenphoto](https://www.zenphoto.org/) in Docker.
 
 ## Usage
 
 1. Clone this repository
-2. (Optional) Change the unsafe passwords in _env.txt_
+2. Copy `env.txt.example` to `env.txt` and set secure passwords
 3. Run `docker compose up --build` to start the application
-4. Open URL "http://localhost:8000/zenphoto" in your browser to access Zenphoto
+4. Open `http://localhost:8000/zenphoto` in your browser
 
-## Caveats
+## Configuration
 
-The passwords in _env.txt_ are weak and public, change them before production use!!
+All configuration is done via environment variables in `env.txt` (never committed to git):
+
+| Variable | Description |
+|---|---|
+| `MARIADB_ROOT_PASSWORD` | MariaDB root password |
+| `MARIADB_USER` | Zenphoto database user |
+| `MARIADB_PASSWORD` | Zenphoto database password |
+| `MARIADB_DATABASE` | Database name |
+| `DB_HOST` | Database hostname (use `db` when using compose) |
 
 ## Contributing
 
