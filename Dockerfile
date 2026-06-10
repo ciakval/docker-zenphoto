@@ -1,7 +1,9 @@
 FROM debian:trixie
+ARG ZENPHOTO_VERSION=1.6.8
+ARG RELEASE=1
 
 LABEL maintainer="Jan Remes <jan@remes.cz>" \
-      version="1.0.0" \
+      version="${ZENPHOTO_VERSION}-${RELEASE}" \
       description="Zenphoto Docker container"
 
 ARG DEBIAN_FRONTEND=noninteractive
@@ -33,7 +35,6 @@ RUN apt-get update && apt-get -y install --no-install-recommends \
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && dpkg-reconfigure locales
 RUN update-ca-certificates
 
-ENV ZENPHOTO_VERSION=1.6.8
 RUN curl -fsSL https://github.com/zenphoto/zenphoto/archive/refs/tags/v${ZENPHOTO_VERSION}.zip -o /zenphoto.zip
 
 COPY start.sh /start.sh
