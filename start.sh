@@ -5,8 +5,8 @@
 # Requires the following environment variables:
 # - MARIADB_USER
 # - MARIADB_PASSWORD
-# - MARIADB_HOST
 # - MARIADB_DATABASE
+# - DB_HOST
 #
 
 set -e
@@ -14,7 +14,7 @@ set -u
 set -o pipefail
 
 # Validate required environment variables early
-for var in MARIADB_USER MARIADB_PASSWORD MARIADB_HOST MARIADB_DATABASE; do
+for var in MARIADB_USER MARIADB_PASSWORD DB_HOST MARIADB_DATABASE; do
 	if [ -z "${!var:-}" ]; then
 		echo "ERROR: Required environment variable '$var' is not set." >&2
 		exit 1
@@ -47,7 +47,7 @@ generate_config_file()
 
 	set_config_field 'mysql_user' "${MARIADB_USER}"
 	set_config_field 'mysql_pass' "${MARIADB_PASSWORD}"
-	set_config_field 'mysql_host' "${MARIADB_HOST}"
+	set_config_field 'mysql_host' "${DB_HOST}"
 	set_config_field 'mysql_database' "${MARIADB_DATABASE}"
 }
 

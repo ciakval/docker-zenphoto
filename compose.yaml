@@ -3,17 +3,17 @@ name: zenphoto
 services:
 
   db:
-    image: mariadb:11.4
+    image: mariadb:lts
     restart: always
     env_file: env.txt
     volumes:
       - db:/var/lib/mysql:Z
     healthcheck:
       test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      start_period: 5s
       interval: 10s
       timeout: 5s
-      retries: 5
-      start_period: 30s
+      retries: 3
 
   web:
     build: .
@@ -27,6 +27,8 @@ services:
       - web:/var/www/html
     restart: always
     env_file: env.txt
+    environment:
+      DB_HOST: db
 
 volumes:
   db:

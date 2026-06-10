@@ -19,7 +19,7 @@ All configuration is done via environment variables in `env.txt` (never committe
 | `MARIADB_USER` | Zenphoto database user |
 | `MARIADB_PASSWORD` | Zenphoto database password |
 | `MARIADB_DATABASE` | Database name |
-| `MARIADB_HOST` | Database hostname (use `db` when using compose) |
+| `DB_HOST` | Database hostname (use `db` when using compose) |
 
 ## Contributing
 
